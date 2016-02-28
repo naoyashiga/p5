@@ -3,18 +3,19 @@ ArrayList<Particle> particles;
 Easing EASING_FUNC = new EasingInOutQuart();
 float time = 0;
 
-boolean EASING_ENABLED = false;
-
 int particlesSize = 4;
 PVector[] centers = new PVector[particlesSize];
+PVector[] nexts = new PVector[particlesSize];
+
+boolean FLAG = true;
 
 void settings() {
-  	size(500, 500);
+	size(500, 500);
 }
 
 void setup() {
 	background(255);
-	float r = 50.0;
+	float r = 100.0;
 
 	center = new PVector(width / 2, height / 2);
 
@@ -29,6 +30,8 @@ void setup() {
 		Particle p = new Particle();
 		p.location = centers[i];
 		particles.add(p);
+
+		nexts[i] = new PVector(random(width), random(height));
 	}
 }
 
@@ -38,71 +41,32 @@ void draw() {
 	rect(0, 0, width, height);
 
 	time += 0.01;
-
+	
 	if (time >= 1.0) {
 		time = 0;
+
+		if (FLAG) {
+			for (int i = 0; i <  nexts.length; i++) {
+				nexts[i] = new PVector(random(width), random(height));
+			}
+
+		} else {
+			for (int i = 0; i <  nexts.length; i++) {
+				// nexts[i] = centers[i];
+				nexts[i] = center;
+			}
+		}
+		FLAG = !FLAG;
 	}
 
 	float currentTime = EASING_FUNC.get(time);
 
-	for (int i = 0; i < particlesSize - 1; i++) {
+	for (int i = 0; i < particlesSize; i++) {
 		Particle p = particles.get(i);
-		// if (i == particlesSize - 1) {
-		// 	i = -1;
-		// }
-		Particle next = particles.get(i + 1);
-		// p.location.x += currentTime;
-		// PVector pos = centers[i];
-		// PVector next;
 
-		// if (i == particlesSize - 1) {
-		// 	next = centers[0];
-		// } else {
-		// 	next = centers[i + 1];
-		// }
-
-		p.location.x = map(currentTime, 0, 1.0, p.location.x, mouseX);
-		p.location.y = map(currentTime, 0, 1.0, p.location.y, mouseY);
-
-		// if(p.location.x == next.x || p.location.y == next.y) {
-		// 	println("aa");
-		// 	if (i == particlesSize - 1) {
-		// 		centers[i] = centers[0];
-		// 	} else {
-		// 		centers[i] = centers[i + 1];
-		// 	}
-		// }
+		p.location.x = map(currentTime, 0, 1.0, p.location.x, nexts[i].x);
+		p.location.y = map(currentTime, 0, 1.0, p.location.y, nexts[i].y);
 
 		p.render();
 	}
-
-	
-	// float currentTime = EASING_FUNC.get(time);
-
-	// for (int i = 0; i < particlesSize; i++) {
-	// 	Particle p = particles.get(i);
-	// 	PVector pos = centers[i];
-
-	// 	if (i == particlesSize - 1) {
-	// 		i = -1;
-	// 	}
-
-	// 	PVector next = centers[i + 1];
-
-	// 	float x = map(currentTime, 0, 1.0, pos.x, next.x);
-	// 	float y = map(currentTime, 0, 1.0, pos.y, next.y);
-
-
-	// 	noStroke();
-	// 	fill(0);
-	// 	p.location = new PVector(x, y);
-	// 	p.render();
-	// 		// ellipse(x, y, p.r, p.r);
-	// 	}
-	// }
 }
-
-void mouseClicked() {
-  // EASING_ENABLED = !EASING_ENABLED;
-}
-
