@@ -45,28 +45,33 @@ void draw() {
 
 	float currentTime = EASING_FUNC.get(time);
 
-	for (int i = 0; i < particlesSize; i++) {
+	for (int i = 0; i < particlesSize - 1; i++) {
 		Particle p = particles.get(i);
-		PVector pos = centers[i];
-		PVector next;
+		// if (i == particlesSize - 1) {
+		// 	i = -1;
+		// }
+		Particle next = particles.get(i + 1);
+		// p.location.x += currentTime;
+		// PVector pos = centers[i];
+		// PVector next;
 
-		if (i == particlesSize - 1) {
-			next = centers[0];
-		} else {
-			next = centers[i + 1];
-		}
+		// if (i == particlesSize - 1) {
+		// 	next = centers[0];
+		// } else {
+		// 	next = centers[i + 1];
+		// }
 
-		p.location.x = map(currentTime, 0, 1.0, pos.x, next.x);
-		p.location.y = map(currentTime, 0, 1.0, pos.y, next.y);
+		p.location.x = map(currentTime, 0, 1.0, p.location.x, mouseX);
+		p.location.y = map(currentTime, 0, 1.0, p.location.y, mouseY);
 
-		if(p.location.x == next.x || p.location.y == next.y) {
-			println("aa");
-			if (i == particlesSize - 1) {
-				centers[i] = centers[0];
-			} else {
-				centers[i] = centers[i + 1];
-			}
-		}
+		// if(p.location.x == next.x || p.location.y == next.y) {
+		// 	println("aa");
+		// 	if (i == particlesSize - 1) {
+		// 		centers[i] = centers[0];
+		// 	} else {
+		// 		centers[i] = centers[i + 1];
+		// 	}
+		// }
 
 		p.render();
 	}
