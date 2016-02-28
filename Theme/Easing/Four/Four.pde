@@ -15,7 +15,7 @@ void settings() {
 
 void setup() {
 	background(255);
-	float r = 100.0;
+	float r = 50.0;
 
 	center = new PVector(width / 2, height / 2);
 
