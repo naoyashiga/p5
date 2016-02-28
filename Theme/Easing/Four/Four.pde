@@ -11,20 +11,21 @@ void setup() {
 
 	center = new PVector(width / 2, height / 2);
 
-	PVector moving = new PVector(-r, -r * sqrt(2));
-
-	// ellipse(center.x, center.y, r, r);
-
-	// center.add(moving);
-	// ellipse(center.x, center.y, r, r);
-
 	//パーティクルの数
-	int particlesSize = 2;
+	int particlesSize = 4;
+
+	PVector[] centers = new PVector[particlesSize];
+	centers[0] = PVector.add(center, new PVector(-r, -r));
+	centers[1] = PVector.add(center, new PVector(r, -r));
+	centers[2] = PVector.add(center, new PVector(r, r));
+	centers[3] = PVector.add(center, new PVector(-r, r));
+
 
 	particles = new ArrayList<Particle>();
 
 	for (int i = 0; i < particlesSize; i++) {
 		Particle p = new Particle();
+		p.location = centers[i];
 		p.render();
 		particles.add(p);
 	}
