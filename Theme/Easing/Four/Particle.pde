@@ -12,7 +12,6 @@ class Particle extends BaseParticle {
   void render() {
     fill(0);
     noStroke();
-    println("aaa");
     ellipse(location.x,location.y,r,r);
   }
 
