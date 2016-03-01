@@ -4,8 +4,8 @@ ArrayList<Particle> particles;
 Easing EASING_FUNC = new EasingInOutQuart();
 float time = 0;
 
-int cols = 30;
-int rows = 30;
+int cols = 50;
+int rows = 50;
 
 float horizontalMargin = 0;
 float verticalMargin = 0;
@@ -18,6 +18,7 @@ boolean EASING_ENABLED = false;
 
 
 void settings() {
+	// size(displayWidth, displayHeight);
 	size(500, 500);
 	horizontalMargin = (int)(width / cols);
 	verticalMargin = (int)(height / rows);
@@ -71,37 +72,18 @@ void draw() {
 		// 格子点からバラバラへ
 		for (Particle p : particles) {
 
-			p.location.x = map(t, 0, 1.0, p.fixedLocation.x ,p.initialLocation.x);
+			p.location.x = map(t, 0, 1.0, p.fixedLocation.x, p.initialLocation.x);
 			p.location.y = map(t, 0, 1.0, p.fixedLocation.y, p.initialLocation.y);
 			p.render();
 		}
 	}
-
-	
-	// if (EASING_ENABLED) {
-	// 	for (Particle p : particles) {
-
-	// 		p.location.x = map(t, 0, 1.0, p.initialLocation.x, p.fixedLocation.x);
-	// 		p.location.y = map(t, 0, 1.0, p.initialLocation.y, p.fixedLocation.y);
-
-	// 		p.render();
-	// 	}
-	// } else {
-	// 	for (Particle p : particles) {
-	// 		p.location = p.initialLocation;
-	// 		p.render();
-	// 	}
-	// }
-
 }
 
 // void mouseClicked() {
 void mousePressed() {
   EASING_ENABLED = !EASING_ENABLED;
-  println(EASING_ENABLED);
 }
 
 void mouseReleased() {
   EASING_ENABLED = !EASING_ENABLED;
-  println(EASING_ENABLED);
 }

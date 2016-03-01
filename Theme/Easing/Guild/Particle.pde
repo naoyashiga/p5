@@ -6,7 +6,7 @@ class Particle extends BaseParticle {
     //画面の中心
     fixedLocation = new PVector(width / 2, height / 2);
 
-    r = 3;
+    r = 2;
   }
 
   void render() {
