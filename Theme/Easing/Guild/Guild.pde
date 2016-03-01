@@ -1,3 +1,4 @@
+// パーティクル
 ArrayList<Particle> particles;
 
 boolean FLAG = true;
@@ -33,7 +34,8 @@ void setup() {
 		for (int j = 0; j <= rows; j++) {
 			Particle p = new Particle();
 
-			p.location = new PVector(random(width), random(height));
+			// p.location = new PVector(random(width), random(height));
+			p.location = new PVector(noise(i) * width, noise(j) * height);
 			
 			// 初期の位置をコピー
 			p.initialLocation = p.location.copy();
