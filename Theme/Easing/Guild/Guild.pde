@@ -1,22 +1,29 @@
 PVector center;
+PVector initialPosition;
+
 ArrayList<Particle> particles;
+ArrayList<PVector> initialPositions;
+
 Easing EASING_FUNC = new EasingInOutQuart();
 float time = 0;
 
 int cols = 10;
 int rows = 10;
 
-float horizontalMargin = (int)(width / cols);
-float verticalMargin = (int)(width / rows);
+float horizontalMargin = 0;
+float verticalMargin = 0;
 
 int particlesSize = cols * rows;
 PVector[] centers = new PVector[particlesSize];
 
 boolean FLAG = true;
+boolean EASING_ENABLED = false;
 
 
 void settings() {
 	size(500, 500);
+	horizontalMargin = (int)(width / cols);
+	verticalMargin = (int)(height / rows);
 }
 
 void setup() {
@@ -26,6 +33,7 @@ void setup() {
 	center = new PVector(width / 2, height / 2);
 
 	particles = new ArrayList<Particle>();
+	initialPositions = new ArrayList<PVector>();
 
 	for (int i = 0; i < cols; i++) {
 		for (int j = 0; j < rows; j++) {
@@ -34,6 +42,10 @@ void setup() {
 			p.fixedPos = new PVector(i * horizontalMargin, j * verticalMargin);
 			particles.add(p);
 		}
+	}
+
+	for (Particle u : particles) {
+		initialPositions.add(u.location);
 	}
 }
 
@@ -46,16 +58,38 @@ void draw() {
 	
 	if (time >= 1.0) {
 		time = 0;
-		FLAG = !FLAG;
+		// FLAG = !FLAG;
 	}
 
-	float currentTime = EASING_FUNC.get(time);
+	float t = EASING_FUNC.get(time);
 
-	for (int i = 0; i < particlesSize; i++) {
-		Particle p = particles.get(i);
-		p.location = p.fixedPos;
-		// p.location.x += currentTime;
+	if (EASING_ENABLED) {
+		for (int i = 0; i < particlesSize; i++) {
+			Particle p = particles.get(i);
+			PVector initialPos = initialPositions.get(i);
 
-		p.render();
+			p.location.x = map(t, 0, 1.0, mouseX, p.fixedPos.x);
+			p.location.y = map(t, 0, 1.0, p.location.y, p.fixedPos.y);
+
+			// p.location.x += currentTime;
+			p.render();
+		}
+
+	} else {
+		for (int i = 0; i < particlesSize; i++) {
+			Particle p = particles.get(i);
+			p.render();
+		}
 	}
+
+}
+
+// void mouseClicked() {
+void mousePressed() {
+  EASING_ENABLED = !EASING_ENABLED;
+  print(EASING_ENABLED);
+}
+
+void mouseReleased() {
+  EASING_ENABLED = !EASING_ENABLED;
 }
