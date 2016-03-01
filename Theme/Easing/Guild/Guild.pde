@@ -1,8 +1,5 @@
 PVector center;
-PVector initialPosition;
-
 ArrayList<Particle> particles;
-ArrayList<PVector> initialPositions;
 
 Easing EASING_FUNC = new EasingInOutQuart();
 float time = 0;
@@ -32,15 +29,15 @@ void setup() {
 	center = new PVector(width / 2, height / 2);
 
 	particles = new ArrayList<Particle>();
-	initialPositions = new ArrayList<PVector>();
 
 	for (int i = 0; i < cols; i++) {
 		for (int j = 0; j < rows; j++) {
 			Particle p = new Particle();
 			p.location = new PVector(random(width), random(height));
-			p.fixedPos = new PVector(i * horizontalMargin, j * verticalMargin);
+			p.initialLocation = p.location;
+
+			p.fixedLocation = new PVector(i * horizontalMargin, j * verticalMargin);
 			particles.add(p);
-			initialPositions.add(p.location);
 		}
 	}
 }
@@ -59,20 +56,16 @@ void draw() {
 	float t = EASING_FUNC.get(time);
 
 	if (EASING_ENABLED) {
-		for (int i = 0; i < particlesSize; i++) {
-			Particle p = particles.get(i);
-			PVector initialPos = initialPositions.get(i);
+		for (Particle p : particles) {
 
-			p.location.x = map(t, 0, 1.0, initialPos.x, p.fixedPos.x);
-			p.location.y = map(t, 0, 1.0, initialPos.y, p.fixedPos.y);
+			p.location.x = map(t, 0, 1.0, p.initialLocation.x, p.fixedLocation.x);
+			p.location.y = map(t, 0, 1.0, p.initialLocation.y, p.fixedLocation.y);
 
 			p.render();
 		}
 	} else {
-		for (int i = 0; i < particlesSize; i++) {
-			Particle p = particles.get(i);
-			PVector initialPos = initialPositions.get(i);
-			// p.location = initialPos;
+		for (Particle p : particles) {
+			p.location = p.initialLocation;
 			p.render();
 		}
 	}
@@ -82,9 +75,10 @@ void draw() {
 // void mouseClicked() {
 void mousePressed() {
   EASING_ENABLED = !EASING_ENABLED;
-  print(EASING_ENABLED);
+  println(EASING_ENABLED);
 }
 
 void mouseReleased() {
   EASING_ENABLED = !EASING_ENABLED;
+  println(EASING_ENABLED);
 }

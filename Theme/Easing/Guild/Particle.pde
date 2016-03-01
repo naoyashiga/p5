@@ -1,9 +1,10 @@
 class Particle extends BaseParticle {
-  PVector fixedPos;
+  PVector fixedLocation;
+  PVector initialLocation;
   
   Particle() {
     //画面の中心
-    fixedPos = new PVector(width / 2, height / 2);
+    fixedLocation = new PVector(width / 2, height / 2);
 
     r = 3;
   }
