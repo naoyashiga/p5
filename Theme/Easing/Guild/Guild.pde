@@ -1,21 +1,21 @@
 PVector center;
 ArrayList<Particle> particles;
 
+// Easing
 Easing EASING_FUNC = new EasingInOutQuart();
 float time = 0;
 
-int cols = 50;
-int rows = 50;
+// パーティクルの行、列数
+int cols = 30;
+int rows = 30;
 
+// 格子点の間隔		
 float horizontalMargin = 0;
 float verticalMargin = 0;
 
 int particlesSize = cols * rows;
-PVector[] centers = new PVector[particlesSize];
 
 boolean FLAG = true;
-boolean EASING_ENABLED = false;
-
 
 void settings() {
 	// size(displayWidth, displayHeight);
@@ -65,6 +65,7 @@ void draw() {
 			p.location.x = map(t, 0, 1.0, p.initialLocation.x, p.fixedLocation.x);
 			p.location.y = map(t, 0, 1.0, p.initialLocation.y, p.fixedLocation.y);
 
+			// p.r = t * 2;
 			p.render();
 		}
 	} else {
@@ -77,13 +78,4 @@ void draw() {
 			p.render();
 		}
 	}
-}
-
-// void mouseClicked() {
-void mousePressed() {
-  EASING_ENABLED = !EASING_ENABLED;
-}
-
-void mouseReleased() {
-  EASING_ENABLED = !EASING_ENABLED;
 }
