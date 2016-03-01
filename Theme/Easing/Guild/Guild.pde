@@ -6,8 +6,8 @@ Easing EASING_FUNC = new EasingInOutQuart();
 float time = 0;
 
 // パーティクルの行、列数
-int cols = 30;
-int rows = 30;
+int cols = 50;
+int rows = 50;
 
 // 格子点の間隔		
 float horizontalMargin = 0;
@@ -25,19 +25,22 @@ void settings() {
 }
 
 void setup() {
-	background(255);
+	background(200);
 
 	center = new PVector(width / 2, height / 2);
 
 	particles = new ArrayList<Particle>();
 
-	for (int i = 0; i < cols; i++) {
-		for (int j = 0; j < rows; j++) {
+	for (int i = 0; i <= cols; i++) {
+		for (int j = 0; j <= rows; j++) {
 			Particle p = new Particle();
 
 			p.location = new PVector(random(width), random(height));
+			
+			// 初期の位置をコピー
 			p.initialLocation = p.location.copy();
 
+			// 格子点の位置
 			p.fixedLocation = new PVector(i * horizontalMargin, j * verticalMargin);
 			particles.add(p);
 		}
@@ -46,7 +49,7 @@ void setup() {
 
 void draw() {
 	noStroke();
-	fill(255);
+	fill(200);
 	rect(0, 0, width, height);
 
 	time += 0.01;
@@ -61,15 +64,11 @@ void draw() {
 	if (FLAG) {
 		// バラバラから格子点に移動
 		for (Particle p : particles) {
-
 			p.location.x = map(t, 0, 1.0, p.initialLocation.x, p.fixedLocation.x);
 			p.location.y = map(t, 0, 1.0, p.initialLocation.y, p.fixedLocation.y);
-
-			// p.r = t * 2;
 			p.render();
 		}
 	} else {
-
 		// 格子点からバラバラへ
 		for (Particle p : particles) {
 
