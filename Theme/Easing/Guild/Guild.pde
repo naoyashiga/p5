@@ -51,11 +51,13 @@ void draw() {
 	
 	if (time >= 1.0) {
 		time = 0;
+		FLAG = !FLAG;
 	}
 
 	float t = EASING_FUNC.get(time);
 
-	if (EASING_ENABLED) {
+	if (FLAG) {
+		// バラバラから格子点に移動
 		for (Particle p : particles) {
 
 			p.location.x = map(t, 0, 1.0, p.initialLocation.x, p.fixedLocation.x);
@@ -64,11 +66,33 @@ void draw() {
 			p.render();
 		}
 	} else {
+
+
+		// 格子点からバラバラへ
 		for (Particle p : particles) {
-			p.location = p.initialLocation;
+
+			p.location.x = map(t, 0, 1.0, p.fixedLocation.x ,p.initialLocation.x);
+			p.location.y = map(t, 0, 1.0, p.fixedLocation.y, p.initialLocation.y);
 			p.render();
 		}
+		
 	}
+
+	
+	// if (EASING_ENABLED) {
+	// 	for (Particle p : particles) {
+
+	// 		p.location.x = map(t, 0, 1.0, p.initialLocation.x, p.fixedLocation.x);
+	// 		p.location.y = map(t, 0, 1.0, p.initialLocation.y, p.fixedLocation.y);
+
+	// 		p.render();
+	// 	}
+	// } else {
+	// 	for (Particle p : particles) {
+	// 		p.location = p.initialLocation;
+	// 		p.render();
+	// 	}
+	// }
 
 }
 
