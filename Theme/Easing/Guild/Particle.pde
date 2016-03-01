@@ -3,7 +3,7 @@ class Particle extends BaseParticle {
   PVector initialLocation;
   
   Particle() {
-    r = 2;
+    r = 1.5;
   }
 
   void render() {
@@ -13,6 +13,5 @@ class Particle extends BaseParticle {
   }
 
   void walk() {
-
   }
 }

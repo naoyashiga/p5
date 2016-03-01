@@ -1,5 +1,6 @@
-PVector center;
 ArrayList<Particle> particles;
+
+boolean FLAG = true;
 
 // Easing
 Easing EASING_FUNC = new EasingInOutQuart();
@@ -13,21 +14,18 @@ int rows = 50;
 float horizontalMargin = 0;
 float verticalMargin = 0;
 
+// パーティクルの個数
 int particlesSize = cols * rows;
-
-boolean FLAG = true;
 
 void settings() {
 	// size(displayWidth, displayHeight);
-	size(500, 500);
+	size(700, 700);
 	horizontalMargin = (int)(width / cols);
 	verticalMargin = (int)(height / rows);
 }
 
 void setup() {
 	background(200);
-
-	center = new PVector(width / 2, height / 2);
 
 	particles = new ArrayList<Particle>();
 
@@ -52,7 +50,7 @@ void draw() {
 	fill(200);
 	rect(0, 0, width, height);
 
-	time += 0.01;
+	time += 0.0025;
 	
 	if (time >= 1.0) {
 		time = 0;
@@ -71,7 +69,6 @@ void draw() {
 	} else {
 		// 格子点からバラバラへ
 		for (Particle p : particles) {
-
 			p.location.x = map(t, 0, 1.0, p.fixedLocation.x, p.initialLocation.x);
 			p.location.y = map(t, 0, 1.0, p.fixedLocation.y, p.initialLocation.y);
 			p.render();
