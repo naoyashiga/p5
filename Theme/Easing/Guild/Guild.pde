@@ -33,8 +33,9 @@ void setup() {
 	for (int i = 0; i < cols; i++) {
 		for (int j = 0; j < rows; j++) {
 			Particle p = new Particle();
+
 			p.location = new PVector(random(width), random(height));
-			p.initialLocation = p.location;
+			p.initialLocation = p.location.copy();
 
 			p.fixedLocation = new PVector(i * horizontalMargin, j * verticalMargin);
 			particles.add(p);
@@ -67,7 +68,6 @@ void draw() {
 		}
 	} else {
 
-
 		// 格子点からバラバラへ
 		for (Particle p : particles) {
 
@@ -75,7 +75,6 @@ void draw() {
 			p.location.y = map(t, 0, 1.0, p.fixedLocation.y, p.initialLocation.y);
 			p.render();
 		}
-		
 	}
 
 	
