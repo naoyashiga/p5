@@ -34,7 +34,7 @@ void setupMyShape() {
 
 	for (int i = 0; i < verticeLength; i++) {
 
-		float fuzzyRadius = 50 * (float)Math.sin(baseAngle * i * 5);
+		float fuzzyRadius = 50 * (float)Math.sin(baseAngle * i * 3);
 		float vx = (float)Math.cos(baseAngle * i);
 		float vy = (float)Math.sin(baseAngle * i);
 
@@ -62,16 +62,26 @@ void renderMyShape() {
 	pushMatrix();
 	translate(width / 2, height / 2);
 
-	float verticeLength = 100;
-	float baseAngle = 2 * PI / verticeLength;
-	float radius = width / 3;
+	// float verticeLength = 100;
+	// float baseAngle = 2 * PI / verticeLength;
+	// float radius = width / 3;
 
 	beginShape();
 
 	for (int i = 0; i < fuzzyVertex.size(); i++) {
 		FuzzyVertice f = fuzzyVertex.get(i);
+		FuzzyVertice pre_f;
 
-		vertex(f.location.x, f.location.y);
+		int index = (int)(fuzzyVertex.size() / 10);
+
+		pre_f = fuzzyVertex.get((i + index) % fuzzyVertex.size());
+
+		// 頂点から指定した頂点までをEasing
+		vertex(
+			map(t, 0, 1.0, pre_f.location.x, f.location.x),
+			map(t, 0, 1.0, pre_f.location.y, f.location.y)
+		);
+
 	}
 
 	// for(int i = 0; i < verticeLength; i++) {
