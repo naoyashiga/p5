@@ -1,3 +1,5 @@
+ArrayList<FuzzyVertice> fuzzyVertex;
+
 // Easing
 Easing EASING_FUNC = new EasingInOutQuart();
 float time = 0;
@@ -10,10 +12,7 @@ void settings() {
 void setup() {
 	background(200);
 
-	
-
-	renderMyShape();
-
+	setupMyShape();
 }
 
 void draw() {
@@ -23,14 +22,29 @@ void draw() {
 	rect(0, 0, width, height);
 
 	renderMyShape();
+}
 
-	
+void setupMyShape() {
+	int verticeLength = 300;
 
-	// float t = EASING_FUNC.get(time);
-	// float angle = map(t, 0, 1.0, 0, 2 * PI);
-	// rotate(angle);
+	float baseAngle = 2 * PI / verticeLength;
+	float radius = width / 3;
 
+	fuzzyVertex = new ArrayList<FuzzyVertice>();
 
+	for (int i = 0; i < verticeLength; i++) {
+
+		float fuzzyRadius = 50 * (float)Math.sin(baseAngle * i * 5);
+		float vx = (float)Math.cos(baseAngle * i);
+		float vy = (float)Math.sin(baseAngle * i);
+
+		PVector baseVertice = new PVector(vx, vy);
+		PVector vertice = PVector.mult(baseVertice, radius + fuzzyRadius);
+
+		FuzzyVertice f = new FuzzyVertice();
+		f.location = vertice;
+		fuzzyVertex.add(f);
+	}
 }
 
 void renderMyShape() {
@@ -54,14 +68,25 @@ void renderMyShape() {
 
 	beginShape();
 
-	for(int i = 0; i < verticeLength; i++) {
-		float fuzzyRadius = 50 * (float)Math.sin(baseAngle * i * 5);
-		float vx = (float)Math.cos(baseAngle * i + deltaAngle);
-		float vy = (float)Math.sin(baseAngle * i + deltaAngle);
-		PVector baseVertice = new PVector(vx, vy);
-		PVector vertice = PVector.mult(baseVertice, radius + fuzzyRadius);
-		vertex(vertice.x, vertice.y);
+	for (int i = 0; i < fuzzyVertex.size(); i++) {
+		FuzzyVertice f = fuzzyVertex.get(i);
+
+		vertex(f.location.x, f.location.y);
 	}
+
+	// for(int i = 0; i < verticeLength; i++) {
+	// 	float fuzzyRadius = 50 * (float)Math.sin(baseAngle * i * 5);
+	// 	float vx = (float)Math.cos(baseAngle * i + deltaAngle);
+	// 	float vy = (float)Math.sin(baseAngle * i + deltaAngle);
+
+	// 	// PVector fluctuationVertice = new PVector(map(t, 0, 1.0, 0, vx), map(t, 0, 1.0, 0, vy));
+	// 	// PVector fluctuationVertice = new PVector(vx + map(t, 0, 1.0, 0, 3), vy);
+
+	// 	PVector baseVertice = new PVector(vx, vy);
+	// 	PVector vertice = PVector.mult(baseVertice, radius + fuzzyRadius);
+	// 	// vertex(vertice.x, vertice.y);
+	// 	vertex(map(t, 0, 1.0, vertice.x, 30), vertice.y);
+	// }
 
 	endShape(CLOSE);
 
