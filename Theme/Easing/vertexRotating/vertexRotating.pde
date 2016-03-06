@@ -22,6 +22,8 @@ void draw() {
 	rect(0, 0, width, height);
 
 	renderMyShape();
+
+	// saveFrame("frames/######.tif");
 }
 
 void setupMyShape() {
