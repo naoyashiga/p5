@@ -35,16 +35,21 @@ void setupMyShape() {
 	fuzzyVertex = new ArrayList<FuzzyVertice>();
 
 	for (int i = 0; i < verticeLength; i++) {
-
+		// 半径をsinカーブ
 		float fuzzyRadius = 50 * (float)Math.sin(baseAngle * i * 3);
+		
+		// 円周上の点
 		float vx = (float)Math.cos(baseAngle * i);
 		float vy = (float)Math.sin(baseAngle * i);
 
 		PVector baseVertice = new PVector(vx, vy);
+		// 半径分だけベクトルを伸ばす
 		PVector vertice = PVector.mult(baseVertice, radius + fuzzyRadius);
 
+		// 頂点のインスタンス
 		FuzzyVertice f = new FuzzyVertice();
 		f.location = vertice;
+		// 頂点を配列を追加
 		fuzzyVertex.add(f);
 	}
 }
@@ -58,7 +63,7 @@ void renderMyShape() {
 	}
 
 	float t = EASING_FUNC.get(time);
-	float deltaAngle = map(t, 0, 1.0, 0, 2 * PI);
+	// float deltaAngle = map(t, 0, 1.0, 0, 2 * PI);
 
 	fill(0);
 	pushMatrix();
@@ -74,16 +79,18 @@ void renderMyShape() {
 		FuzzyVertice f = fuzzyVertex.get(i);
 		FuzzyVertice pre_f;
 
+		// 移動後の頂点のindex
 		int index = (int)(fuzzyVertex.size() / 10);
 
+		// 移動後の頂点を配列リストから取得
 		pre_f = fuzzyVertex.get((i + index) % fuzzyVertex.size());
 
 		// Easing move vertice to other vertice
+		// 頂点から頂点へEasingして移動
 		vertex(
 			map(t, 0, 1.0, pre_f.location.x, f.location.x),
 			map(t, 0, 1.0, pre_f.location.y, f.location.y)
 		);
-
 	}
 
 	// for(int i = 0; i < verticeLength; i++) {
