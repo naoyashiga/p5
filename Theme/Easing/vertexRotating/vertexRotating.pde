@@ -78,7 +78,7 @@ void renderMyShape() {
 
 		pre_f = fuzzyVertex.get((i + index) % fuzzyVertex.size());
 
-		// 頂点から指定した頂点までをEasing
+		// Easing move vertice to other vertice
 		vertex(
 			map(t, 0, 1.0, pre_f.location.x, f.location.x),
 			map(t, 0, 1.0, pre_f.location.y, f.location.y)
