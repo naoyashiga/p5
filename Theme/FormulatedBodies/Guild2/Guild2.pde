@@ -13,53 +13,30 @@ void settings() {
 }
 
 void setup() {
-	background(200);
-	fill(255);  
+	background(0);
+	lights();
 }
 
 void draw() {
-	fill(200);
+	fill(0);
 	// strokeWeight(1/80.0);
 	rect(0, 0, width, height);
 
 	// stroke(153);
-	scale(ratio);
+	// scale(ratio);
 
 	setView();
 
 	pushMatrix();
-	stroke(80);
-  	strokeWeight(0.03);
-	// translate(width * 0.5 / ratio, height * 0.5 / ratio);
-	translate(2, 2);
-	fill(255);
-
-	for(int y = 0; y < yCount; y++) {
-		beginShape(QUAD_STRIP);
-		for(int x = 0; x <= xCount; x++) {
-			float z = sqrt(x * x + y * y);
-
-			float xAngle = frameCount * 0.01;
-			float yAngle = frameCount * 0.01;
-			float zAngle = frameCount * 0.01;
-
-			float _x = 1 * cos(xAngle);
-			float _y = 1 * cos(yAngle);
-
-			vertex(x, y, z);
-			// vertex(_x, _y + 1, z);
-
-			z = sin(sqrt(x * x + (y + 1) * (y + 1)) + zAngle);
-
-			vertex(x, y + z, z);
-			vertex(cos(xAngle), cos(yAngle), z);
-			// vertex(_x, _y + z, z);
-		}
-
-		endShape();
-	}
-
+	translate(width / 2, height / 2, 0);
+	noFill();
+	stroke(255);
+	sphere(280);
 	popMatrix();
+
+
+
+
 
 	// saveFrame("frames/######.tif");
 }
