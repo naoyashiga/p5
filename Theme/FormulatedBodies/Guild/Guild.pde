@@ -52,7 +52,7 @@ void draw() {
 			z = sin(sqrt(x * x + (y + 1) * (y + 1)) + zAngle);
 
 			vertex(x, y + z, z);
-			vertex(cos(xAngle), cos(yAngle), z);
+			// vertex(cos(xAngle), cos(yAngle), z);
 			// vertex(_x, _y + z, z);
 		}
 

@@ -3,22 +3,22 @@ int yCount = 1;
 
 // view rotation
 int offsetX = 0, offsetY = 0, clickX = 0, clickY = 0;
-float rotationX = -0.3, rotationY = 0.7, targetRotationX = -0.3, targetRotationY = 0.7, clickRotationX, clickRotationY; 
+float rotationX = 0.5, rotationY = -1.3, targetRotationX = 0.1, targetRotationY = 0, clickRotationX, clickRotationY; 
 
 int ratio = 20;
 
 ArrayList<Particle> particles;
 
 void settings() {
-	size(displayWidth, displayHeight, P3D);
-	// size(700, 700, P3D);
+	// size(displayWidth, displayHeight, P3D);
+	size(500, 500, P3D);
 }
 
 void setup() {
 	background(200);
-	lights();
+	// lights();
 
-	int particlesSize = 500;
+	int particlesSize = 30;
 	particles = new ArrayList<Particle>();
 
 	for (int i = 0; i < particlesSize; i++) {
@@ -27,12 +27,19 @@ void setup() {
 	    //配列に追加
 	    particles.add(p);
 	}
+
+	// rotateY(-TWO_PI / 2);
+	rotateX(PI / 4);
 }
 
 void draw() {
 	fill(200);
 	// strokeWeight(1/80.0);
 	rect(0, 0, width, height);
+
+	// rotateX(frameCount * 0.01);
+	// rotateY(frameCount * 0.01);
+	// rotateZ(frameCount * 0.01);
 
 	// stroke(153);
 	// scale(ratio);
@@ -51,6 +58,8 @@ void mousePressed(){
 	clickY = mouseY;
 	clickRotationX = rotationX;
 	clickRotationY = rotationY;
+	println("rotationX: "+rotationX);
+	println("rotationY: "+rotationY);
 }
 
 void setView() {
