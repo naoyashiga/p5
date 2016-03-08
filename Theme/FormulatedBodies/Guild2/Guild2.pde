@@ -18,7 +18,7 @@ void setup() {
 	background(200);
 	lights();
 
-	int particlesSize = 1000;
+	int particlesSize = 500;
 	particles = new ArrayList<Particle>();
 
 	for (int i = 0; i < particlesSize; i++) {
