@@ -7,18 +7,30 @@ float rotationX = -0.3, rotationY = 0.7, targetRotationX = -0.3, targetRotationY
 
 int ratio = 20;
 
+ArrayList<Particle> particles;
+
 void settings() {
-	// size(displayWidth, displayHeight, P3D);
-	size(700, 700, P3D);
+	size(displayWidth, displayHeight, P3D);
+	// size(700, 700, P3D);
 }
 
 void setup() {
-	background(0);
+	background(200);
 	lights();
+
+	int particlesSize = 1000;
+	particles = new ArrayList<Particle>();
+
+	for (int i = 0; i < particlesSize; i++) {
+	    //位置はランダム
+	    Particle p = new Particle();
+	    //配列に追加
+	    particles.add(p);
+	}
 }
 
 void draw() {
-	fill(0);
+	fill(200);
 	// strokeWeight(1/80.0);
 	rect(0, 0, width, height);
 
@@ -27,39 +39,30 @@ void draw() {
 
 	setView();
 
-	pushMatrix();
-	translate(width / 2, height / 2, 0);
-	noFill();
-	stroke(255);
-	sphere(280);
-	popMatrix();
-
-
-
-
+	for (Particle p : particles) {
+		p.render();
+	}
 
 	// saveFrame("frames/######.tif");
 }
 
 void mousePressed(){
-  clickX = mouseX;
-  clickY = mouseY;
-  clickRotationX = rotationX;
-  clickRotationY = rotationY;
+	clickX = mouseX;
+	clickY = mouseY;
+	clickRotationX = rotationX;
+	clickRotationY = rotationY;
 }
-
-
 
 void setView() {
   // translate(width*0.1,height*0.2);
 
   if (mousePressed) {
-    offsetX = mouseX-clickX;
-    offsetY = mouseY-clickY;
-    targetRotationX = clickRotationX + offsetX/float(width) * TWO_PI;
-    targetRotationY = min(max(clickRotationY + offsetY/float(height) * TWO_PI, -HALF_PI), HALF_PI);
-    rotationX += (targetRotationX-rotationX)*0.25; 
-    rotationY += (targetRotationY-rotationY)*0.25;  
+  	offsetX = mouseX-clickX;
+  	offsetY = mouseY-clickY;
+  	targetRotationX = clickRotationX + offsetX/float(width) * TWO_PI;
+  	targetRotationY = min(max(clickRotationY + offsetY/float(height) * TWO_PI, -HALF_PI), HALF_PI);
+  	rotationX += (targetRotationX-rotationX)*0.25; 
+  	rotationY += (targetRotationY-rotationY)*0.25;  
   }
   rotateX(-rotationY); 
   rotateY(rotationX); 
