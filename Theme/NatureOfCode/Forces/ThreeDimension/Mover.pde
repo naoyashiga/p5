@@ -24,7 +24,7 @@ class Mover {
  
   void display() {
     stroke(0);
-    strokeWeight(10);
+    strokeWeight(3);
     fill(175);
     point(location.x, location.y, location.z);
   }
