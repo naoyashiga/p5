@@ -23,22 +23,33 @@ class Mover {
   }
  
   void display() {
-    stroke(0);
-    strokeWeight(10);
+    stroke(255 * location.x / width,255 * location.y / height,255 * location.z / width);
+    strokeWeight(1);
     fill(175);
-    point(location.x, location.y, location.z);
+
+    PVector l = location.get();
+    l.normalize();
+    l.mult(300);
+
+    l.add(width, 0, 0);
+
+    point(l.x, l.y, l.z);
+    // point(location.x, location.y, location.z);
   }
  
   void checkEdges() {
     if (location.x > width) {
       location.x = width;
       velocity.x *= -1;
-    } else if (location.x < 0) {
+    } else if (location.x < -width) {
       velocity.x *= -1;
       location.x = 0;
     }
  
     if (location.y > height) {
+      velocity.y *= -1;
+      location.y = height;
+    } else if (location.y < -height) {
       velocity.y *= -1;
       location.y = height;
     }
