@@ -11,7 +11,7 @@ void settings() {
 void setup() {
 	background(200);
 
-	int moversLength = 100;
+	int moversLength = 1000;
 
 	movers = new ArrayList<Mover>();
 

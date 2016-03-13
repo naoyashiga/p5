@@ -24,14 +24,16 @@ class Mover {
  
   void display() {
     stroke(255 * location.x / width,255 * location.y / height,255 * location.z / width);
-    strokeWeight(10);
+    strokeWeight(2);
     fill(175);
 
     PVector l = location.get();
     l.normalize();
-    l.mult(100);
+    l.mult(300);
 
-    point(location.x, location.y, location.z);
+    l.add(width, -height / 2, -width / 2);
+
+    point(l.x, l.y, l.z);
     // point(location.x, location.y, location.z);
   }
  
