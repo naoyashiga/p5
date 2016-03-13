@@ -11,7 +11,7 @@ void settings() {
 void setup() {
 	background(200);
 
-	int moversLength = 1000;
+	int moversLength = 5000;
 
 	movers = new ArrayList<Mover>();
 
@@ -31,7 +31,7 @@ void draw() {
 	background(200);
 
 	setView();
-	PVector wind = new PVector(0.01, 0, 0);
+	PVector wind = new PVector(0, 0, 0);
 	PVector gravity = new PVector(0, 0.1, 0);
 
 	for(Mover m: movers) {
@@ -46,13 +46,13 @@ void draw() {
 	stroke(0);
     strokeWeight(2);
 
-    line(width, 0, 0, -width, 0, 0);
-    line(width / 2, height, 0, width / 2, -height, 0);
-    line(width / 2, 0, width, width / 2, 0, -width);
+    // line(width, 0, 0, -width, 0, 0);
+    // line(width / 2, height, 0, width / 2, -height, 0);
+    // line(width / 2, 0, width, width / 2, 0, -width);
 }
 
 void setView() {
-  // translate(width*0.1,height*0.2);
+  translate(0,0, -width);
 
   if (mousePressed) {
   	offsetX = mouseX-clickX;
