@@ -2,6 +2,8 @@ class Mover {
   PVector location;
   PVector velocity;
   PVector acceleration;
+
+  PVector initialLocation;
   float mass;
  
   Mover(float x, float y, float z) {
@@ -9,6 +11,8 @@ class Mover {
     location = new PVector(x, y, z);
     velocity = new PVector(0, 0, 0);
     acceleration = new PVector(0, 0, 0);
+
+    initialLocation = location.get();
   }
  
   void applyForce(PVector force) {
@@ -23,18 +27,28 @@ class Mover {
   }
  
   void display() {
-    stroke(255 * location.x / width,255 * location.y / height,255 * location.z / width);
+    // stroke(255 * location.x / width,255 * location.y / height,255 * location.z / width);
+    stroke(255);
     strokeWeight(1);
     fill(175);
 
-    PVector l = location.get();
+
+    // point(l.x, l.y, l.z);
+    point(location.x, location.y, location.z);
+  }
+
+  PVector getInitialPosition() {
+    return initialLocation;
+  }
+
+  PVector getSurfacePosition() {
+    PVector l = initialLocation.get();
     l.normalize();
     l.mult(300);
 
     l.add(width, 0, 0);
 
-    point(l.x, l.y, l.z);
-    // point(location.x, location.y, location.z);
+    return l;
   }
  
   void checkEdges() {
