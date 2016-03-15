@@ -9,7 +9,7 @@ void settings() {
 }
 
 void setup() {
-	background(200);
+	background(0);
 
 	int moversLength = 5000;
 
@@ -28,7 +28,7 @@ void setup() {
 }
 
 void draw() {
-	background(200);
+	background(0);
 
 	setView();
 	PVector wind = new PVector(0, 0, 0);
@@ -42,13 +42,6 @@ void draw() {
 		m.display();
 		m.checkEdges();
 	}
-
-	stroke(0);
-    strokeWeight(2);
-
-    // line(width, 0, 0, -width, 0, 0);
-    // line(width / 2, height, 0, width / 2, -height, 0);
-    // line(width / 2, 0, width, width / 2, 0, -width);
 }
 
 void setView() {
