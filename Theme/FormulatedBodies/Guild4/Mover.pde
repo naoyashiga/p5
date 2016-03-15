@@ -7,7 +7,7 @@ class Mover {
   PVector nextLocation;
 
   float mass;
- 
+
   Mover(float x, float y, float z, float nx, float ny, float nz) {
     mass = 1;
     location = new PVector(x, y, z);
@@ -35,6 +35,9 @@ class Mover {
   void display() {
     // stroke(255 * location.x / width,255 * location.y / height,255 * location.z / width);
     stroke(255);
+
+    // float weight = map(location.z, -width, width, 0, 1);
+    // strokeWeight(weight);
     strokeWeight(1);
     fill(175);
 

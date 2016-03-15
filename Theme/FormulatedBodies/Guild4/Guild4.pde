@@ -78,7 +78,7 @@ void draw() {
 
 
 		if(t == 0) {
-			// int index = (i + 5) % movers.size();
+			// int index = (i + 1) % movers.size();
 			int rnd = (int)random(movers.size());
 			int index = (i + rnd) % movers.size();
 			PVector next = movers.get(index).getInitialLocation();
