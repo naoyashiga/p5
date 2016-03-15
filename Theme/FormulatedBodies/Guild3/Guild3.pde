@@ -35,7 +35,7 @@ void draw() {
 	background(0);
 
 	setView();
-	PVector wind = new PVector(0, 0, 0);
+	PVector wind = new PVector(0.1, 0, 0);
 	PVector gravity = new PVector(0, 0.1, 0);
 
 	time += 0.01;
@@ -47,11 +47,12 @@ void draw() {
 	float t = EASING_FUNC.get(time);
 
 	for(Mover m: movers) {
-		m.applyForce(wind);
+		// m.applyForce(wind);
 		m.applyForce(gravity);
 
 		m.update();
 		m.checkEdges();
+
 
 		PVector l = m.getSurfacePosition();
 		PVector p = m.getInitialPosition();
@@ -59,24 +60,21 @@ void draw() {
 		float ly = map(t, 0, 1, p.y, l.y);
 		float lz = map(t, 0, 1, p.z, l.z);
 
-		m.location = new PVector(lx, ly, lz);
+		PVector goal = new PVector(lx, ly, lz);
+		PVector direction = PVector.sub(p, goal).normalize();
+		// m.applyForce(direction);
+		// m.location = new PVector(m.location.x, m.location.y, lz);
+		m.location = goal.get();
 		m.display();
 	}
-
-	stroke(0);
-    strokeWeight(2);
-
-    // line(width, 0, 0, -width, 0, 0);
-    // line(width / 2, height, 0, width / 2, -height, 0);
-    // line(width / 2, 0, width, width / 2, 0, -width);
 }
 
-void mousePressed() {
-	PVector mouse = new PVector(mouseX, mouseY, 0);
-	for(Mover m: movers) {
-		m.initialLocation = PVector.sub(mouse, m.location);
-	}
-}
+// void mousePressed() {
+// 	PVector mouse = new PVector(mouseX, mouseY, 0);
+// 	for(Mover m: movers) {
+// 		m.initialLocation = PVector.sub(mouse, m.location);
+// 	}
+// }
 
 void setView() {
   translate(0,0, -width);
