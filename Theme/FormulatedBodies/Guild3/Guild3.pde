@@ -71,6 +71,13 @@ void draw() {
     // line(width / 2, 0, width, width / 2, 0, -width);
 }
 
+void mousePressed() {
+	PVector mouse = new PVector(mouseX, mouseY, 0);
+	for(Mover m: movers) {
+		m.initialLocation = PVector.sub(mouse, m.location);
+	}
+}
+
 void setView() {
   translate(0,0, -width);
 
