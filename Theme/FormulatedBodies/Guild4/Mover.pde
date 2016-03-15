@@ -8,7 +8,7 @@ class Mover {
 
   float mass;
  
-  Mover(float x, float y, float z) {
+  Mover(float x, float y, float z, float nx, float ny, float nz) {
     mass = 1;
     location = new PVector(x, y, z);
 
@@ -18,7 +18,7 @@ class Mover {
 
     
     initialLocation = location.get();
-    nextLocation = new PVector(random(x), random(y), 0);
+    nextLocation = new PVector(nx, ny, nz);
   }
  
   void applyForce(PVector force) {

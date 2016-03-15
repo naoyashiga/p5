@@ -7,6 +7,19 @@ float rotationX = 0.5, rotationY = -1.3, targetRotationX = 0.1, targetRotationY 
 Easing EASING_FUNC = new EasingInOutQuart();
 float time = 0;
 
+// パーティクルの行、列数
+int cols = 10;
+int rows = 10;
+int depths = 10;
+
+// 格子点の間隔		
+float horizontalMargin = 0;
+float verticalMargin = 0;
+float depthMarigin = 0;
+
+// パーティクルの個数
+int particlesSize = cols * rows * depths;
+
 void settings() {
 	// size(displayWidth, displayHeight);
 	size(700, 700, P3D);
@@ -15,19 +28,28 @@ void settings() {
 void setup() {
 	background(0);
 
-	int moversLength = 5000;
+	horizontalMargin = (int)(width / cols);
+	verticalMargin = (int)(height / rows);
+	depthMarigin = (int)(width / depths);
+
+	int moversLength = particlesSize;
 
 	movers = new ArrayList<Mover>();
 
-	for (int i = 0; i < moversLength; i++) {
-		float mx = random(-width, width);
-		float my = random(-height, height);
-		// float mz = sqrt(mx * mx + my * my);
-		float mz = random(-width, width);
+	// for (int i = 0; i < moversLength; i++) {
+	for (int i = 0; i <= cols; i++) {
+		for (int j = 0; j <= rows; j++) {
+			for (int k = 0; k <= depths; k++) {
 
-		Mover m = new Mover(mx, my, mz);
+				float mx = random(-width, width);
+				float my = random(-height, height);
+				float mz = random(-width, width);
 
-		movers.add(m);
+				Mover m = new Mover(mx, my, mz, i * horizontalMargin, j * verticalMargin, k * depthMarigin);
+
+				movers.add(m);
+			}
+		}
 	}
 }
 
