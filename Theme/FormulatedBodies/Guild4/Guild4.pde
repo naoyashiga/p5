@@ -83,6 +83,8 @@ void draw() {
 			int index = (i + rnd) % movers.size();
 			PVector next = movers.get(index).getInitialLocation();
 			m.nextLocation = next.get();
+		} else if(t == 1) {
+			m.initialLocation = m.nextLocation;
 		}
 
 		// PVector l = m.getSurfacePosition();
@@ -93,13 +95,7 @@ void draw() {
 		float ly = map(t, 0, 1, p.y, m.nextLocation.y);
 		float lz = map(t, 0, 1, p.z, m.nextLocation.z);
 
-		if(t == 1) {
-			m.initialLocation = m.nextLocation;
-		}
-
 		PVector goal = new PVector(lx, ly, lz);
-		// m.applyForce(direction);
-		// m.location = new PVector(m.location.x, m.location.y, lz);
 		m.location = goal.get();
 		m.display();
 	}
